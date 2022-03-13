@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InMemory.Web", "InMemory.Web\InMemory.Web.csproj", "{38259329-F64C-427A-9DC8-C2BBA01E2B46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redis.Web", "Redis.Web\Redis.Web.csproj", "{690021A1-1FEE-41E1-8774-1D5799123D35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redis2.Web", "Redis2.Web\Redis2.Web.csproj", "{D7B94233-E8F7-4B96-81D8-B0787D97FEA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38259329-F64C-427A-9DC8-C2BBA01E2B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38259329-F64C-427A-9DC8-C2BBA01E2B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38259329-F64C-427A-9DC8-C2BBA01E2B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38259329-F64C-427A-9DC8-C2BBA01E2B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690021A1-1FEE-41E1-8774-1D5799123D35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690021A1-1FEE-41E1-8774-1D5799123D35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690021A1-1FEE-41E1-8774-1D5799123D35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690021A1-1FEE-41E1-8774-1D5799123D35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7B94233-E8F7-4B96-81D8-B0787D97FEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7B94233-E8F7-4B96-81D8-B0787D97FEA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7B94233-E8F7-4B96-81D8-B0787D97FEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7B94233-E8F7-4B96-81D8-B0787D97FEA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B794DD7-19CE-4C20-A58A-951F8CF379DE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,89 @@
+                                               ******** InMemory Cache *********
+                                              -----------------------------------
+
+ -> Uygulamanın ayağa kalktığı sistemin memory sinde tutulur
+ -> Object tipinde değer aldığı için her türlü data InMemory Cache de tutulabilir.
+
+
+
+                                                *******  Redis (Remote Dictionay Server) Nedir?  ********
+                                                ---------------------------------------------------------
+
+-> Datalar byte dizisi şeklinde tutulur
+
+-> Chocolatey(windows için paket yöneticisi) ile Redis kurulumu(windows)
+
+   Windows PowerShell de sırasıyla;
+
+   a.) "Get-ExecutionPolicy" 
+   b.) "Set-ExecutionPolicy AllSigned"
+   c.) Bu kısmı kendi sitesinden al => "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+   d.) "choco install redis-64 --version 3.0.503"
+   e.) "redis-server" serveri ayağa kaldırabiliriz,
+   f.) farklı bir power shell de "redis-cli"  yazarak sonrasında "ping"  yazıp "PONG" cevabı aldıysan cli üzerinde localindeki redis server'a bağlandın demektri.
+   g.) Redis Desktop Manager üzerinde de bağlanabilirsin, bağlanınca default olarak 16 adet database olur verilerini kategorize edebilirsin
+   h.) powerShell üzerinden redis'e data kaydetmek ya da okumak için;
+
+    string veri tipi için;
+      -> set Name Emre
+      -> get Name 
+      -> getrange Name 0 2
+    int veri tipi için
+      -> set Sayi 10
+      -> get Sayi
+      -> incr Sayi (Eğer Sayi integer sa 1 arttıracak)
+
+-> Docker Container ile Redis kurulumu
+
+   a.) En temiz yöntemi docker üzerşnde yapmak çünkü üstteki kurulumları yapmak zorunda kalmassın ve en güncele sürümü kullanırsın
+
+-> Çeşitli tiplerde veri tipi tutulabilir (Sadece key-value şeklinde değil)
+
+-> Distributed Caching çözümlerinden biridir
+
+-> "Shared Cache Service"'dir  (Ayrı bir sunucu içinde çalışan bir servis aracılığı ile dataların tutulması ve ilgili yerlere dağıtılmasıdır) 
+
+-> Redis'in avatajları;
+
+  1.) Farklı sunucularda olan ve benzer verileri kullanan uygulama olabilir. Veri tutarsızlığını önlemek için kullanılır
+  2.) Uygulamalar restart olsa dahi, datalara farklı bir sunucudaki shared cache servis te tutulacağı için cache deki datalar kaybolmamış olacak
+
+-> Redis'in dezavatajları(gözle görülebilecek tarzda dezavataj değildir. öenmli olan veri tutarlılığıdır);
+  
+  1.) InMemory cache tutulan veriye erişim daha hızlıdır.  Distributed cache de datala uygulama dışında tutulduğu için istek atılması gerekir. Veriye erişim daha yavaş olur.
+  2.) InMemory cache implementasyonu daha kolay, distributed de biraz daha zor 
+
+
+
+
+                                            ******** On-Demand & PrePopulation *********
+                                            ---------------------------------------------
+
+
+   1.) On-Demand       -> İlgili data sadece talep edildiği zaman cachelenir.
+   2.) PrePopulation   -> Uygulama ayağa kalkması ile birlikte çok sık kullanılan datalar henüz kullanıcı istek atmadan cachlenmesidir.
+
+
+                                            ******** Absolute Time & Sliding Time *********
+                                            ----------------------------------------------
+
+  1.) Absolute Time -> Bir cache için belirli bir süre belirlenir. Örneğin 5 dk O süre dolar dolmaz cache silinir
+  2.) Sliding Time  -> Bir cache için belirli bir süre belirlenir. Örneğin 5 dk, 5 dk içinde o dataya erişim oldumu süresi 5 dk daha uzar. Erişim olmaz ise o cache silinir
+
+  Not : Sliding Time belirlerken, Absolute Time da belirlenirse sliding time en fazla Absolute Time değerine kadar ömrü uzar
+Örneğin; Absolute: 15dk, Sliding:5dk her 5 dk içinde sliding e erişim olduğu zaman sliding time en fazla 15 dk kadar ömrü uzayabilir 
+
+
+                                                   ******** Cache Priority *********
+                                            ----------------------------------------------
+
+ 1.) Bellek dolduğu zaman, hangi cache önemli, hangisi değilse öncelik belirtilebilir.
+ 
+       MemoryCacheEntryOptions options = new MemoryCacheEntryOptions(); 
+            options.Priority = CacheItemPriority.High;
+            options.Priority = CacheItemPriority.Low;
+            options.Priority = CacheItemPriority.NeverRemove;     -> NeverRemove bellek dolu olsa dahi silmez. Diğerleri ise önem sırasına göre silinir. 
+            options.Priority = CacheItemPriority.Normal;
+
+ 2.) RegisterPostEvictionCallback()   metodu Memory den düşen ya da silinen dataların hangi sebepten dolayı olduğunu görebilirsin
+
